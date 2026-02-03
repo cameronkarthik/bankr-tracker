@@ -1,0 +1,114 @@
+// Token launch data from DexScreener
+export interface TokenLaunch {
+  pairAddress: string;
+  tokenAddress: string;
+  name: string;
+  symbol: string;
+  dexId: string;
+  priceUsd: number;
+  marketCap: number;
+  volume24h: number;
+  liquidityUsd: number;
+  priceChange24h: number;
+  pairCreatedAt: number; // Unix timestamp in ms
+  dexscreenerUrl: string;
+  lastUpdated: number;
+}
+
+// DexScreener API response types
+export interface DexScreenerPair {
+  chainId: string;
+  dexId: string;
+  url: string;
+  pairAddress: string;
+  labels?: string[];
+  baseToken: {
+    address: string;
+    name: string;
+    symbol: string;
+  };
+  quoteToken: {
+    address: string;
+    name: string;
+    symbol: string;
+  };
+  priceNative?: string;
+  priceUsd?: string;
+  txns?: {
+    m5?: { buys: number; sells: number };
+    h1?: { buys: number; sells: number };
+    h6?: { buys: number; sells: number };
+    h24?: { buys: number; sells: number };
+  };
+  volume?: {
+    m5?: number;
+    h1?: number;
+    h6?: number;
+    h24?: number;
+  };
+  priceChange?: {
+    m5?: number;
+    h1?: number;
+    h6?: number;
+    h24?: number;
+  };
+  liquidity?: {
+    usd?: number;
+    base?: number;
+    quote?: number;
+  };
+  fdv?: number;
+  marketCap?: number;
+  pairCreatedAt?: number;
+  info?: {
+    imageUrl?: string;
+    header?: string;
+    openGraph?: string;
+    websites?: { label: string; url: string }[];
+    socials?: { type: string; url: string }[];
+  };
+}
+
+export interface DexScreenerSearchResponse {
+  pairs: DexScreenerPair[];
+}
+
+export interface DexScreenerBoost {
+  chainId: string;
+  tokenAddress: string;
+  url: string;
+  description?: string;
+  totalAmount?: number;
+  amount?: number;
+  icon?: string;
+  links?: { type: string; url: string }[];
+}
+
+// Watchlist entry
+export interface WatchlistEntry {
+  id: number;
+  userId: string;
+  tokenAddress: string;
+  addedAt: number;
+}
+
+// Alert configuration
+export interface Alert {
+  id: number;
+  userId: string;
+  tokenAddress: string;
+  conditionType: 'price' | 'volume' | 'mcap';
+  operator: '>' | '<' | '=';
+  threshold: number;
+  triggered: boolean;
+  createdAt: number;
+}
+
+// Command types
+export type SortOption = 'volume' | 'mcap' | 'age';
+
+export interface LaunchesQuery {
+  timeframeHours: number;
+  sortBy: SortOption;
+  limit: number;
+}
